@@ -1,0 +1,68 @@
+---
+title: "Predict Letter using SVM"
+author: "Pranjali Naik"
+date: "2022-05-09"
+output: html_document
+---
+```{r}
+# Install and use kernlab library
+#install.packages("kernlab")
+library(kernlab)
+```
+
+```{r}
+# Read the data into letters
+letters=read.csv("letter-recognition.data.csv")
+str(letters)
+```
+
+```{r}
+# Changing the type of response variable from chr to factor
+letters$letter <- as.factor(letters$letter)
+```
+
+```{r}
+# Dividing data into train and test sets
+letters_train <- letters[1:16000, ]
+letters_test <- letters[16001:20000, ]
+```
+
+```{r}
+# Using SVM with vanilladot kernel
+letter_classifier <- ksvm(letter ~ ., data = letters_train,kernel = "vanilladot")
+letter_classifier
+```
+
+```{r}
+# Predicting using test data set
+letter_predictions <- predict(letter_classifier, letters_test)
+head(letter_predictions)
+```
+
+```{r}
+# Creating a table of the predictions and test letters
+table(letter_predictions, letters_test$letter)
+
+# Checking how many match among them
+agreement <- letter_predictions == letters_test$letter
+
+# Creating a table of True and False values
+table(agreement)
+prop.table(table(agreement))
+```
+
+```{r}
+# Repeating the same process now using the 'rbf' kernel to compare results
+letter_classifier_rbf <- ksvm(letter ~ ., data = letters_train,kernel = "rbfdot")
+letter_predictions_rbf <- predict(letter_classifier_rbf,letters_test)
+agreement_rbf <- letter_predictions_rbf == letters_test$letter
+
+```
+
+```{r}
+# View and compare
+table(agreement_rbf)
+prop.table(table(agreement_rbf))
+```
+
+
