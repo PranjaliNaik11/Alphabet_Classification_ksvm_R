@@ -45,6 +45,6 @@ The KSVM algorithm is a powerful tool for classification tasks, especially when 
 4. Evaluate the classification performance using appropriate metrics.
 5. Analyze the results and fine-tune the model if necessary for better performance.
 
-## Contributing
+## Contribution
 
 Contributions are welcome! If you'd like to contribute to this project, please fork the repository, make your changes, and submit a pull request. Make sure to follow the existing code style and guidelines.
